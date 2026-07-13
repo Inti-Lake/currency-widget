@@ -4,106 +4,126 @@
 <meta charset="UTF-8">
 <title>Inti Lake Currency Converter</title>
 
-<!-- Mulish font -->
-<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600&display=swap" rel="stylesheet">
-
 <style>
-  /* Match Inti bubble clock styling */
-  body {
-    font-family: 'Mulish', sans-serif;
-    margin: 0;
-    padding: 12px;
-    max-width: 260px;
+  /* OUTER BUBBLE — EXACT MATCH TO CLOCK */
+  .inti-bubble-wrapper {
+    display: inline-block;
+    text-align: left;
+    padding: 14px 18px;
+    border-radius: 16px;
 
-    background: #36302A; /* same dark brown bubble */
-    color: #ECE4DA;       /* same cream text */
-    border-radius: 12px;  /* same rounded bubble */
+    /* Frosted glass background */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(6px);
+
+    /* Floating shadow */
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+
+    /* Text colour */
+    color: #ECE4DA;
+
+    /* MATCH CLOCK FONT */
+    font-family: "Helvetica Neue", "Segoe UI", sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+
+    max-width: 260px;
   }
 
   /* Labels match bubble clock text */
   label {
-    font-weight: 600;
-    color: #ECE4DA;
+    opacity: 0.75;
+    font-size: 13px;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
-  /* Inputs match bubble clock rows */
+  /* Inputs match bubble interior */
   select, input {
     width: 100%;
     padding: 10px;
-    margin: 8px 0;
+    margin: 10px 0;
 
     border-radius: 8px;
     border: none;
 
-    background: #4A433C; /* slightly lighter brown for contrast */
+    /* Slightly darker frosted interior */
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(4px);
+
     color: #ECE4DA;
+    font-size: 15px;
+    font-weight: 300;
   }
 
   input::placeholder {
     color: #ECE4DA;
-    opacity: 0.6;
+    opacity: 0.5;
   }
 
   /* Result text matches bubble clock */
   #result {
     margin-top: 12px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 300;
     color: #ECE4DA;
   }
 </style>
 </head>
 <body>
 
-<label>Convert AUD to:</label>
-<select id="currencySelect">
-  <option disabled>— Europe —</option>
-  <option value="GBP">GBP – British Pound</option>
-  <option value="EUR">EUR – Euro</option>
-  <option value="CHF">CHF – Swiss Franc</option>
-  <option value="SEK">SEK – Swedish Krona</option>
-  <option value="NOK">NOK – Norwegian Krone</option>
-  <option value="DKK">DKK – Danish Krone</option>
-  <option value="PLN">PLN – Polish Zloty</option>
-  <option value="CZK">CZK – Czech Koruna</option>
-  <option value="HUF">HUF – Hungarian Forint</option>
-  <option value="RON">RON – Romanian Leu</option>
+<div class="inti-bubble-wrapper">
 
-  <option disabled>— Asia —</option>
-  <option value="JPY">JPY – Japanese Yen</option>
-  <option value="CNY">CNY – Chinese Yuan</option>
-  <option value="KRW">KRW – South Korean Won</option>
-  <option value="SGD">SGD – Singapore Dollar</option>
-  <option value="HKD">HKD – Hong Kong Dollar</option>
-  <option value="THB">THB – Thai Baht</option>
-  <option value="MYR">MYR – Malaysian Ringgit</option>
-  <option value="PHP">PHP – Philippine Peso</option>
-  <option value="INR">INR – Indian Rupee</option>
+  <label>Convert AUD to:</label>
+  <select id="currencySelect">
+    <option disabled>— Europe —</option>
+    <option value="GBP">GBP – British Pound</option>
+    <option value="EUR">EUR – Euro</option>
+    <option value="CHF">CHF – Swiss Franc</option>
+    <option value="SEK">SEK – Swedish Krona</option>
+    <option value="NOK">NOK – Norwegian Krone</option>
+    <option value="DKK">DKK – Danish Krone</option>
+    <option value="PLN">PLN – Polish Zloty</option>
+    <option value="CZK">CZK – Czech Koruna</option>
+    <option value="HUF">HUF – Hungarian Forint</option>
+    <option value="RON">RON – Romanian Leu</option>
 
-  <option disabled>— Oceania —</option>
-  <option value="NZD">NZD – New Zealand Dollar</option>
+    <option disabled>— Asia —</option>
+    <option value="JPY">JPY – Japanese Yen</option>
+    <option value="CNY">CNY – Chinese Yuan</option>
+    <option value="KRW">KRW – South Korean Won</option>
+    <option value="SGD">SGD – Singapore Dollar</option>
+    <option value="HKD">HKD – Hong Kong Dollar</option>
+    <option value="THB">THB – Thai Baht</option>
+    <option value="MYR">MYR – Malaysian Ringgit</option>
+    <option value="PHP">PHP – Philippine Peso</option>
+    <option value="INR">INR – Indian Rupee</option>
 
-  <option disabled>— Middle East —</option>
-  <option value="AED">AED – UAE Dirham</option>
-  <option value="SAR">SAR – Saudi Riyal</option>
-  <option value="TRY">TRY – Turkish Lira</option>
+    <option disabled>— Oceania —</option>
+    <option value="NZD">NZD – New Zealand Dollar</option>
 
-  <option disabled>— Africa —</option>
-  <option value="ZAR">ZAR – South African Rand</option>
+    <option disabled>— Middle East —</option>
+    <option value="AED">AED – UAE Dirham</option>
+    <option value="SAR">SAR – Saudi Riyal</option>
+    <option value="TRY">TRY – Turkish Lira</option>
 
-  <option disabled>— South America —</option>
-  <option value="BRL">BRL – Brazilian Real</option>
-  <option value="ARS">ARS – Argentine Peso</option>
-  <option value="CLP">CLP – Chilean Peso</option>
-  <option value="COP">COP – Colombian Peso</option>
-  <option value="MXN">MXN – Mexican Peso</option>
-</select>
+    <option disabled>— Africa —</option>
+    <option value="ZAR">ZAR – South African Rand</option>
 
-<label>Amount in AUD:</label>
-<input id="audInput" type="number" placeholder="Enter AUD amount">
+    <option disabled>— South America —</option>
+    <option value="BRL">BRL – Brazilian Real</option>
+    <option value="ARS">ARS – Argentine Peso</option>
+    <option value="CLP">CLP – Chilean Peso</option>
+    <option value="COP">COP – Colombian Peso</option>
+    <option value="MXN">MXN – Mexican Peso</option>
+  </select>
 
-<div id="result"></div>
+  <label>Amount in AUD:</label>
+  <input id="audInput" type="number" placeholder="Enter AUD amount">
+
+  <div id="result"></div>
+
+</div>
 
 <script>
 async function convert() {
