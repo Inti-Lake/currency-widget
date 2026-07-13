@@ -8,34 +8,37 @@
 <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+  /* Match Inti bubble clock styling */
   body {
     font-family: 'Mulish', sans-serif;
     margin: 0;
-    padding: 10px;
+    padding: 12px;
     max-width: 260px;
 
-    background: transparent;
-    color: #ECE4DA;
+    background: #36302A; /* same dark brown bubble */
+    color: #ECE4DA;       /* same cream text */
+    border-radius: 12px;  /* same rounded bubble */
   }
 
+  /* Labels match bubble clock text */
   label {
     font-weight: 600;
     color: #ECE4DA;
+    display: block;
+    margin-bottom: 4px;
   }
 
+  /* Inputs match bubble clock rows */
   select, input {
     width: 100%;
-    padding: 8px;
-    margin: 6px 0;
+    padding: 10px;
+    margin: 8px 0;
 
     border-radius: 8px;
-    border: 1px solid #ECE4DA;
+    border: none;
 
-    /* Text inside fields */
+    background: #4A433C; /* slightly lighter brown for contrast */
     color: #ECE4DA;
-
-    /* Field background */
-    background: #36302A;
   }
 
   input::placeholder {
@@ -43,8 +46,9 @@
     opacity: 0.6;
   }
 
+  /* Result text matches bubble clock */
   #result {
-    margin-top: 10px;
+    margin-top: 12px;
     font-weight: 600;
     color: #ECE4DA;
   }
