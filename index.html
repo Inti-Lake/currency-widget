@@ -40,7 +40,8 @@
 
   /* Inputs match bubble interior */
   select, input {
-    width: 100%;
+    width: 100%;              /* ← THIS ensures identical width */
+    box-sizing: border-box;   /* ← Prevents overflow */
     padding: 10px;
     margin: 10px 0;
 
