@@ -10,15 +10,14 @@
     margin: 0;
     padding: 0;
     text-align: left;
-    background: transparent; /* ensures correct bubble colour */
+
+    /* DARK FOOTER BACKGROUND — CRITICAL FIX */
+    background: #12100F;
   }
 
   .inti-bubble-wrapper {
     display: block;
     text-align: left;
-
-    /* MATCH CLOCK WIDTH — remove max-width */
-    width: auto;
 
     padding: 14px 18px;
     border-radius: 16px;
@@ -37,9 +36,9 @@
 
     color: #ECE4DA;
     margin-left: 0;
+    width: auto;
   }
 
-  /* Labels match clock */
   label {
     opacity: 0.75;
     font-size: 13px;
@@ -47,7 +46,6 @@
     margin-bottom: 6px;
   }
 
-  /* Inputs match bubble interior */
   select, input {
     width: 100%;
     box-sizing: border-box;
