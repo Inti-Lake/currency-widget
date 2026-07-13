@@ -1,32 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Inti Lake Currency Converter</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 10px;
-    max-width: 260px;
-  }
-  label { font-weight: bold; }
-  select, input {
-    width: 100%;
-    padding: 6px;
-    margin: 6px 0;
-  }
-  .group {
-    font-weight: bold;
-    color: #333;
-  }
-</style>
-</head>
-<body>
+<div style="max-width:260px; font-family:Arial, sans-serif; padding:10px;">
 
-<label>Convert AUD to:</label>
-<select id="currencySelect">
-  <option class="group" disabled>— Europe —</option>
+<label style="font-weight:bold;">Convert AUD to:</label>
+<select id="currencySelect" style="width:100%; padding:6px; margin:6px 0;">
+  <option disabled>— Europe —</option>
   <option value="GBP">GBP – British Pound</option>
   <option value="EUR">EUR – Euro</option>
   <option value="CHF">CHF – Swiss Franc</option>
@@ -38,7 +14,7 @@
   <option value="HUF">HUF – Hungarian Forint</option>
   <option value="RON">RON – Romanian Leu</option>
 
-  <option class="group" disabled>— Asia —</option>
+  <option disabled>— Asia —</option>
   <option value="JPY">JPY – Japanese Yen</option>
   <option value="CNY">CNY – Chinese Yuan</option>
   <option value="KRW">KRW – South Korean Won</option>
@@ -49,18 +25,18 @@
   <option value="PHP">PHP – Philippine Peso</option>
   <option value="INR">INR – Indian Rupee</option>
 
-  <option class="group" disabled>— Oceania —</option>
+  <option disabled>— Oceania —</option>
   <option value="NZD">NZD – New Zealand Dollar</option>
 
-  <option class="group" disabled>— Middle East —</option>
+  <option disabled>— Middle East —</option>
   <option value="AED">AED – UAE Dirham</option>
   <option value="SAR">SAR – Saudi Riyal</option>
   <option value="TRY">TRY – Turkish Lira</option>
 
-  <option class="group" disabled>— Africa —</option>
+  <option disabled>— Africa —</option>
   <option value="ZAR">ZAR – South African Rand</option>
 
-  <option class="group" disabled>— South America —</option>
+  <option disabled>— South America —</option>
   <option value="BRL">BRL – Brazilian Real</option>
   <option value="ARS">ARS – Argentine Peso</option>
   <option value="CLP">CLP – Chilean Peso</option>
@@ -68,8 +44,8 @@
   <option value="MXN">MXN – Mexican Peso</option>
 </select>
 
-<label>Amount in AUD:</label>
-<input id="audInput" type="number" placeholder="Enter AUD amount">
+<label style="font-weight:bold;">Amount in AUD:</label>
+<input id="audInput" type="number" placeholder="Enter AUD amount" style="width:100%; padding:6px; margin:6px 0;">
 
 <div id="result" style="margin-top:8px; font-weight:bold;"></div>
 
@@ -89,9 +65,10 @@ async function convert() {
     const res = await fetch(url);
     const data = await res.json();
 
-    const rate = data.result;
-    const converted = (amount * rate).toFixed(2);
+    // FIXED LINE — this is why NaN was happening before
+    const rate = data.info.rate;
 
+    const converted = (amount * rate).toFixed(2);
     resultDiv.textContent = `${amount} AUD ≈ ${converted} ${currency}`;
   } catch {
     resultDiv.textContent = "Conversion unavailable.";
@@ -102,5 +79,4 @@ document.getElementById("audInput").addEventListener("input", convert);
 document.getElementById("currencySelect").addEventListener("change", convert);
 </script>
 
-</body>
-</html>
+</div>
