@@ -1,7 +1,31 @@
-<div style="max-width:260px; font-family:Arial, sans-serif; padding:10px;">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Inti Lake Currency Converter</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 10px;
+    max-width: 260px;
+  }
+  label { font-weight: bold; }
+  select, input {
+    width: 100%;
+    padding: 6px;
+    margin: 6px 0;
+  }
+  .group {
+    font-weight: bold;
+    color: #333;
+  }
+</style>
+</head>
+<body>
 
-<label style="font-weight:bold;">Convert AUD to:</label>
-<select id="currencySelect" style="width:100%; padding:6px; margin:6px 0;">
+<label>Convert AUD to:</label>
+<select id="currencySelect">
   <option disabled>— Europe —</option>
   <option value="GBP">GBP – British Pound</option>
   <option value="EUR">EUR – Euro</option>
@@ -44,8 +68,8 @@
   <option value="MXN">MXN – Mexican Peso</option>
 </select>
 
-<label style="font-weight:bold;">Amount in AUD:</label>
-<input id="audInput" type="number" placeholder="Enter AUD amount" style="width:100%; padding:6px; margin:6px 0;">
+<label>Amount in AUD:</label>
+<input id="audInput" type="number" placeholder="Enter AUD amount">
 
 <div id="result" style="margin-top:8px; font-weight:bold;"></div>
 
@@ -61,14 +85,14 @@ async function convert() {
   }
 
   try {
-    const url = `https://api.exchangerate.host/convert?from=AUD&to=${currency}`;
+    // Squarespace-friendly API
+    const url = "https://open.er-api.com/v6/latest/AUD";
     const res = await fetch(url);
     const data = await res.json();
 
-    // FIXED LINE — this is why NaN was happening before
-    const rate = data.info.rate;
-
+    const rate = data.rates[currency];
     const converted = (amount * rate).toFixed(2);
+
     resultDiv.textContent = `${amount} AUD ≈ ${converted} ${currency}`;
   } catch {
     resultDiv.textContent = "Conversion unavailable.";
@@ -79,4 +103,5 @@ document.getElementById("audInput").addEventListener("input", convert);
 document.getElementById("currencySelect").addEventListener("change", convert);
 </script>
 
-</div>
+</body>
+</html>
