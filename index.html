@@ -16,10 +16,6 @@
     padding: 6px;
     margin: 6px 0;
   }
-  .group {
-    font-weight: bold;
-    color: #333;
-  }
 </style>
 </head>
 <body>
@@ -85,12 +81,11 @@ async function convert() {
   }
 
   try {
-    // Squarespace-friendly API
-    const url = "https://open.er-api.com/v6/latest/AUD";
-    const res = await fetch(url);
+    // FREE + CORS + GITHUB-SAFE API
+    const res = await fetch("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/aud.json");
     const data = await res.json();
 
-    const rate = data.rates[currency];
+    const rate = data.aud[currency.toLowerCase()];
     const converted = (amount * rate).toFixed(2);
 
     resultDiv.textContent = `${amount} AUD ≈ ${converted} ${currency}`;
