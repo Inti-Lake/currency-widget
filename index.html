@@ -5,40 +5,41 @@
 <title>Inti Lake Currency Converter</title>
 
 <style>
-  /* OUTER BUBBLE — EXACT MATCH TO CLOCK */
+  /* MATCH CLOCK EXACTLY */
+  body {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background: transparent; /* ensures correct bubble colour */
+  }
+
   .inti-bubble-wrapper {
-    display: block;              /* ← ensures left alignment */
-    text-align: left;            /* ← ensures left alignment */
+    display: block;
+    text-align: left;
+
+    /* MATCH CLOCK WIDTH — remove max-width */
+    width: auto;
+
     padding: 14px 18px;
     border-radius: 16px;
 
-    /* Frosted glass background */
+    /* Frosted glass background — EXACT match */
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(6px);
 
-    /* Floating shadow */
+    /* Floating shadow — EXACT match */
     box-shadow: 0 4px 14px rgba(0,0,0,0.35);
-
-    /* Text colour */
-    color: #ECE4DA;
 
     /* MATCH CLOCK FONT */
     font-family: "Helvetica Neue", "Segoe UI", sans-serif;
     font-weight: 300;
     letter-spacing: 0.5px;
 
-    max-width: 260px;
-    margin-left: 0;              /* ← forces bubble flush left */
+    color: #ECE4DA;
+    margin-left: 0;
   }
 
-  /* Ensure iframe body doesn't center content */
-  body {
-    text-align: left;            /* ← prevents inline-block centering */
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Labels match bubble clock text */
+  /* Labels match clock */
   label {
     opacity: 0.75;
     font-size: 13px;
@@ -48,15 +49,14 @@
 
   /* Inputs match bubble interior */
   select, input {
-    width: 100%;                 /* ← identical width */
-    box-sizing: border-box;      /* ← prevents overflow */
+    width: 100%;
+    box-sizing: border-box;
     padding: 10px;
     margin: 10px 0;
 
     border-radius: 8px;
     border: none;
 
-    /* Slightly darker frosted interior */
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(4px);
 
@@ -70,7 +70,6 @@
     opacity: 0.5;
   }
 
-  /* Result text matches bubble clock */
   #result {
     margin-top: 12px;
     font-size: 15px;
@@ -109,3 +108,58 @@
     <option value="INR">INR – Indian Rupee</option>
 
     <option disabled>— Oceania —</option>
+    <option value="NZD">NZD – New Zealand Dollar</option>
+
+    <option disabled>— Middle East —</option>
+    <option value="AED">AED – UAE Dirham</option>
+    <option value="SAR">SAR – Saudi Riyal</option>
+    <option value="TRY">TRY – Turkish Lira</option>
+
+    <option disabled>— Africa —</option>
+    <option value="ZAR">ZAR – South African Rand</option>
+
+    <option disabled>— South America —</option>
+    <option value="BRL">BRL – Brazilian Real</option>
+    <option value="ARS">ARS – Argentine Peso</option>
+    <option value="CLP">CLP – Chilean Peso</option>
+    <option value="COP">COP – Colombian Peso</option>
+    <option value="MXN">MXN – Mexican Peso</option>
+  </select>
+
+  <label>Amount in AUD:</label>
+  <input id="audInput" type="number" placeholder="Enter AUD amount">
+
+  <div id="result"></div>
+
+</div>
+
+<script>
+async function convert() {
+  const amount = parseFloat(document.getElementById("audInput").value);
+  const currency = document.getElementById("currencySelect").value;
+  const resultDiv = document.getElementById("result");
+
+  if (!amount || !currency) {
+    resultDiv.textContent = "";
+    return;
+  }
+
+  try {
+    const res = await fetch("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/aud.json");
+    const data = await res.json();
+
+    const rate = data.aud[currency.toLowerCase()];
+    const converted = (amount * rate).toFixed(2);
+
+    resultDiv.textContent = `${amount} AUD ≈ ${converted} ${currency}`;
+  } catch {
+    resultDiv.textContent = "Conversion unavailable.";
+  }
+}
+
+document.getElementById("audInput").addEventListener("input", convert);
+document.getElementById("currencySelect").addEventListener("change", convert);
+</script>
+
+</body>
+</html>
